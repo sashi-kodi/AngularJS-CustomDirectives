@@ -1,0 +1,66 @@
+<!doctype>
+<html>
+    <head>
+        <title>Custom Directives Demo1</title>
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    </head>
+    <body ng-app="myapp">
+        <div class="container">
+        
+           <div ng-controller="empCtrl">
+               <div class="row">
+               <div ng-repeat="employee in employees" class="col-sm-4">
+                   <show-emp-det> </show-emp-det>
+               
+               </div>
+             </div>
+            
+        </div>
+        </div>
+        
+        <script>
+            var myapp=angular.module('myapp', []);
+            myapp.directive('showEmpDet', function(){
+              return{
+                  templateUrl:'./showEmpDetails.html'
+              }
+            });
+            
+            myapp.factory('empFactory', ['$http','$log',function($http,$log){
+                var factory={};
+                factory.getEmpDetails= function(empno,cb){
+                    $http.get('/emp/'+empno).then(
+                        function(res){
+                            console.log(res.data);
+                        cb(res.data);
+                    }, function(res){
+                        $log.log('error occurred');
+                    });
+                };
+                factory.getAllEmpDetails = function(cb){
+                    $http.get('/emp').then(function(res){
+                        
+                        cb(res.data);
+                    }, function(res){
+                        console.log('error occurred');
+                    });
+                }
+                return factory;
+            }]);
+        
+            myapp.controller('empCtrl', ['$scope','empFactory',function($scope,empFactory){
+                $scope.employees=null;
+                
+                empFactory.getAllEmpDetails(function(data){
+                    $scope.employees=data;
+                });
+                
+                
+            }]);
+        </script>
+    </body>
+</html>

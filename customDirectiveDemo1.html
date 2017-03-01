@@ -1,0 +1,51 @@
+<!doctype>
+<html>
+  <head>
+    <title>Custom Directives Dom Manipulation</title>
+       <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+  </head>
+    <body ng-app="myApp">
+       
+           <div my-directive name="{{i}}" ng-repeat="i in [1,2,3,4,5]">
+              {{i}}
+           </div>
+        
+        
+        <script>
+          var myApp = angular.module('myApp', []);
+           
+            
+            myApp.directive('myDirective', function($interpolate){
+                return {
+                    compile: function(telement,tattrs){
+                        telement.css("border", "1px solid #C0C0C0");
+                        return{
+                        post:function(scope,ielement,iattrs,controller){
+                           if(iattrs.name==='3'){
+                               ielement.css("border", "1px solid red");
+                           }
+                            ielement.on('click', scope.click);
+                         }
+                      }
+                         
+                    },
+                    controller:function($scope,$element,$attrs){
+                        var value = $interpolate($attrs.name)($scope);
+//                        $scope.click = function(){
+//                            alert(value);
+//                        }
+                        $scope.click = function(){
+                            alert($scope.i);
+                        }
+                    }
+                }
+                
+            });
+        
+        </script>
+    </body>
+</html>

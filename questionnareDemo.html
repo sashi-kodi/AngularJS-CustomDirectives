@@ -1,0 +1,57 @@
+
+<!doctype>
+<html>
+    <head>
+        <title>User info</title>
+        
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<style>
+    body{
+        padding-top:30px;
+    }  
+   
+</style>
+    </head>
+    <body class="container" ng-app="myapp">
+        <div class="row">
+        <div ng-controller="myctrl" class="col-sm-4">
+            <h1>Questions</h1>
+          
+           <question-directive qtext="Do you like Angular JS?">
+              <input type="radio" name="answer" value= "yes" ng-model="user.answer">YES
+                <input type="radio" name="answer" value= "no" ng-model="user.answer">NO
+               
+            </question-directive>
+              <question-directive qtext="What is your favourite color?">
+              <input type="radio" name="answer" value= "yes" ng-model="user.answer">YES
+                <input type="radio" name="answer" value= "no" ng-model="user.answer">NO
+               
+            </question-directive>
+        </div>
+        </div>
+          
+        
+        <script>
+        var myapp=angular.module('myapp', []);
+           myapp.controller('myctrl', function($scope){
+            $scope.user={answer:''};
+           });
+         myapp.directive('questionDirective', function(){
+             return{
+                 transclude:true,
+                 restrict:'E',
+                 scope:{
+                     qtext:'@'
+                 },
+                 templateUrl:'question.html'
+             }
+         })
+            
+        </script>
+    </body>
+</html>
+        
+        
+        

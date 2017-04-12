@@ -1,0 +1,30 @@
+
+<div class="panel panel-primary">
+    <div class="panel-heading" ng-click="collapse()">
+        <p>Name:{{user.name}}</p>
+    </div>
+         <div class="panelbpdy" ng-show="!collapsed">
+             <p>Age: {{user.age}}</p>
+            <p ng-show="!!user.address">
+            Address : {{user.address}}
+            </p>
+             <br>
+            <div>Friends : 
+                <ul>
+                    <li ng-repeat="fren in user.friends">{{fren}}
+                        <remove-friend method="removeFriend(fren)"></remove-friend>
+                    </li>
+                    
+                </ul>
+            </div>
+             <div ng-show="user.rank">
+              Rank :{{user.rank}}
+             </div>
+             <br>
+             <button ng-show="!user.rank" ng-click="knightMe()" class="btn btn-success">KnightMe</button>
+             <br>
+         </div>   
+        
+</div>
+
+                    

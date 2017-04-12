@@ -1,0 +1,64 @@
+
+<!doctype>
+<html>
+    <head>
+        <title>User info</title>
+        
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<style>
+    body{
+        padding-top:30px;
+    }  
+    
+</style>
+    </head>
+    <body class="container" ng-app="myapp">
+        
+        <div ng-controller="myctrl">
+           <user-display-directive user="user"></user-display-directive>
+        </div>
+          
+        
+        <script>
+        var myapp=angular.module('myapp', []);
+           myapp.controller('myctrl', function($scope){
+               $scope.user={name:'isha', rank:1, address:'san ramon,ca',friends:['veda','srinidhi'],state:0};
+           });
+           myapp.directive('userDisplayDirective', function(){
+              return{
+                  restrict:'E',
+                  scope:{
+                      user:'='
+                  },
+                  templateUrl:'userInfo1.html',
+                  controller: function($scope){
+                      $scope.nextState = function(){
+                          $scope.user.state +=1;
+                          $scope.user.state= $scope.user.state %3;
+                          
+                      }
+                  }
+              } 
+           });
+            myapp.directive('colorDirective', function(){
+              return{
+                  
+                 link:function(scope,el,attrs){
+                      var color;  
+                     var parms = attrs['colorDirective'].split(" ");
+                     scope.$watch(parms[0], function(newval){
+                         
+                         el.css('background-color', parms[newval+1]);
+                     });
+                 }
+              }
+                  
+           });
+        </script>
+    </body>
+</html>
+        
+        
+        

@@ -1,0 +1,58 @@
+<!--
+directive to simulate ng-click
+-->
+<!doctype>
+<html>
+    <head>
+        <title>MyClick</title>
+        
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<style>
+    body{
+        padding-top:30px;
+    }  
+    .hilite{
+        color:'red';
+        background-color: aqua;
+        
+    }
+</style>
+    </head>
+    <body class="container" ng-app="myapp">
+        
+        <div ng-controller="myctrl">
+          <user-tile user="user1">
+            
+            </user-tile>
+        </div>
+          
+        
+        <script>
+        var myapp=angular.module('myapp', []);
+            myapp.controller('myctrl', function($scope){
+               $scope.user1={name:'isha',selected:true};
+            });
+           myapp.directive('userTile', function(){
+              return{
+                  restrict: 'E',
+                  scope:{
+                      user:'='
+                  },
+                  template:`<div class="well" ng-class="{'hilite':user.selected}" ng-click="select()"><h1>{{user.name}}</h1></div>`,
+                  controller: function($scope){
+                      $scope.select = function(){
+                         console.log($scope.user.selected);
+                          $scope.user.selected = !$scope.user.selected;
+                      }
+                  }
+                  }
+               
+           });
+        </script>
+    </body>
+</html>
+        
+        
+        

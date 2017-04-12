@@ -1,0 +1,19 @@
+<div class="row">
+ <div class="col-sm-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h2>{{user.name|uppercase}}</h2> 
+      </div>
+    <div class="panel-body" color-directive="user.state yellow skyblue pink">
+      <p><strong><span class="glyphicon glyphicon-home"></span>Address : </strong>{{user.address}}</p>
+        <p ng-show="user.rank">Rank: {{user.rank}}</p>
+    
+     <p><strong><span class="glyphicon glyphicon-user"></span>Friends:</strong></p>
+    <ol>
+        <li ng-repeat="x in user.friends">{{x}}</li>
+    </ol>
+        <button class="btn btn-info btn-sm" ng-click="nextState()">Next State</button>
+        </div>
+</div>
+</div>
+</div>

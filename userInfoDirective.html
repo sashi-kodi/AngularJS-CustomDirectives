@@ -1,0 +1,95 @@
+<!--
+directive to display user info
+-->
+<!doctype>
+<html>
+    <head>
+        <title>Custom Directives Demo2</title>
+        
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<style>
+    body{
+        padding-top:30px;
+    }        
+</style>
+    </head>
+    <body ng-app="myapp">
+        
+        <div class="container">
+         <div ng-controller="myctrl">
+               <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                   <user-info user="user"></user-info>
+                </div>
+             
+               </div>
+              
+          </div>
+        
+        </div>
+          
+        
+        <script>
+        var myapp=angular.module('myapp', []);
+            myapp.controller('myctrl', function($scope){
+                $scope.user={name:'veda', age:2, address:'san ramon,ca',
+                            friends:['isha', 'sashi', 'srinidhi']
+                           
+                            };
+            });
+            myapp.directive('removeFriend', function(){
+                return {
+                    scope:{
+                        notifyParent:'&method'
+                    },
+                    templateUrl:'removeFriend.html',
+                    controller:function($scope){
+                        
+                    
+                        $scope.removing=false;
+                        
+                        $scope.confirmRemove = function(){
+                            notifyParent();
+                        }
+                        
+                    $scope.cancel= function(){
+                    $scope.removing=false;
+                }
+                    }
+                }
+            });
+            myapp.directive('userInfo', function(){
+                return {
+                    templateUrl:'userinfo.html',
+                    scope:{
+                        user:'='
+                    },
+                    controller:function($scope){
+                        $scope.collapsed=false;
+                     $scope.knightMe = function(){
+                         $scope.user.rank="knight";
+                     };
+                        $scope.collapse= function(){
+                            $scope.collapsed=!$scope.collapsed;
+                        }
+                        
+                        $scope.removeFriend = function(fren){
+                        var pos=$scope.user.friends.indexOf(fren);
+                        if (pos!==-1){
+                            $scope.user.friends.splice(pos,1);
+                          }
+                        
+                    }
+                    }
+                    
+                   
+                }
+            });
+        </script>
+    </body>
+</html>
+        
+        
+        

@@ -1,0 +1,54 @@
+
+<!doctype>
+<html>
+    <head>
+        <title>User info</title>
+        
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<style>
+    body{
+        padding-top:30px;
+    }  
+    
+</style>
+    </head>
+    <body class="container" ng-app="myapp">
+        
+        <div ng-controller="myCtrl">
+            
+            {{list | json}}
+          <my-todo todos="list" title="{{title}}"></my-todo>
+        </div>
+        <script>
+            var app= angular.module('myapp', []);
+            app.controller('myCtrl', function($scope){
+                $scope.title="My tasks";
+                $scope.list =[{name:'play football', complete:false},{name:'playing with kids', complete:false},{name:'coooking', complete:true}];
+            });
+            
+           app.directive('myTodo', function(){
+              return{
+                  restrict:'E',
+                  scope:{
+                      title:'@',
+                      todos:'='
+                  },
+                  template:`
+                  <h2>{{title}}</h2>
+<ul><li ng-repeat="task in todos"> <input type="checkbox" ng-model="task.complete" > {{task.name}}
+            </li> </ul>
+        
+                  `
+                  
+              } 
+           });
+            
+        </script>
+       
+    </body>
+</html>
+        
+        
+        
